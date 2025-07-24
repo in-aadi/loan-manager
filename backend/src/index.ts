@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes';
+import { authMiddleware } from './middlewares/authMiddleware';
+import loanRoutes from './routes/loanRoutes';
 
 dotenv.config();
 
@@ -12,6 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+
+app.use('/api/loan', authMiddleware, loanRoutes); 
 
 app.get('/', (req, res) => {
   res.send('Loan Manager API is running');
