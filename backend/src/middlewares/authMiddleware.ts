@@ -16,6 +16,13 @@ declare global {
   }
 }
 
+export interface AuthenticatedRequest extends Request {
+  user?: {
+    userId: number;
+    role: "USER" | "VERIFIER" | "ADMIN";
+  };
+}
+
 export const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
